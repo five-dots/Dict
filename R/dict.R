@@ -78,7 +78,7 @@ Dict <- R6::R6Class(
     #' Print Dict \code{items} which is normal \code{\link{tbl_df}} by tibble
     #' package.
     #'
-    #' @param ... Additional aruguments passed to \code{print.tbl}.
+    #' @param ... Additional arguments passed to \code{print.tbl}.
     #'
     #' @return Dict object by \code{invisible(self)}.
     print = function(...) {
@@ -189,7 +189,7 @@ Dict <- R6::R6Class(
     length = function() nrow(private$.items),
     #' @field class A character scalar of value class.
     class = function() private$.class,
-    #' @field overwrite A logical scalar wheather to overwrite value if key is
+    #' @field overwrite A logical scalar whether to overwrite value if key is
     #' overlapped.
     overwrite = function() private$.overwrite,
   ),

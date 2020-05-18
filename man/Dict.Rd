@@ -80,7 +80,7 @@ ages
 
 \item{\code{class}}{A character scalar of value class.}
 
-\item{\code{overwrite}}{A logical scalar wheather to overwrite value if key is
+\item{\code{overwrite}}{A logical scalar whether to overwrite value if key is
 overlapped.}
 }
 \if{html}{\out{</div>}}
@@ -141,7 +141,7 @@ package.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Additional aruguments passed to \code{print.tbl}.}
+\item{\code{...}}{Additional arguments passed to \code{print.tbl}.}
 }
 \if{html}{\out{</div>}}
 }
