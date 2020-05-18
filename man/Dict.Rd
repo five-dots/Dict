@@ -8,32 +8,38 @@
 dict(..., .class = "any", .overwrite = TRUE)
 }
 \arguments{
-\item{...}{Key and value pairs.}
+\item{...}{Any length of key and value pairs. If you would like to use
+a not valid R name as a key, you must wrap it by backquotes or convert it
+using \code{\link{make.names}}.}
 
-\item{.class}{A character scalar. Value object's class.}
+\item{.class}{A character scalar of value object's class. It must be an
+output from \code{\link{class}}. If "any" (default), value can contain
+any type of object.}
 
 \item{.overwrite}{A logical scalar. Whether to overwrite the value if the
 key is overlapped.}
 }
 \description{
-Key-value dictionary class.
+A key-value dictionary data structure based on R6 class.
 }
 \examples{
-ages <- Dict$new(Charlie = 40L, Alice = 30L, Bob = 25L,
-                 .class = "integer", .overwrite = TRUE)
+ages <- Dict$new(
+  Charlie = 40L,
+  Alice = 30L,
+  Bob = 25L,
+  .class = "integer",
+  .overwrite = TRUE
+)
 
-## Get by key
+## Get a value
 ages["Bob"] # or ages$get("Bob")
+ages[3] # also by integer index
 
-## Get by row index of self$items
-ages[3] # or ages$get(3)
-
-## Set a default value if the key does not exists (default = NULL)
+## Return the default value if the key does not exists (default = NULL)
 ages["Michael", default = 30]
 
-## Add new item
+## Add a new item
 ages["John"] <- 18L # or ages$add(John = 18L)
-ages["John"]
 
 ## Can be overridden if .overwrite = TRUE
 ages["Bob"] <- 26L
@@ -47,9 +53,10 @@ ages$remove("Bob")
 ages$has("Bob")
 
 ## Some additonal fields
-ages$items # a tbl_df of items
-ages$keys # a character vector of keys
+ages$keys   # a character vector of keys
 ages$values # a list of values
+ages$items  # a tbl_df of items
+ages$length # items length
 
 ## Sort by keys
 ages$sort()
@@ -63,17 +70,18 @@ ages
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{items}}{Items of the dictionary.}
+\item{\code{items}}{A tbl_df of the dictionary items.}
 
-\item{\code{keys}}{Keys of the dictionary.}
+\item{\code{keys}}{A character vector of the dictionary keys.}
 
-\item{\code{values}}{Values of the dictionary.}
+\item{\code{values}}{A list of of the dictionary values.}
 
-\item{\code{length}}{Length of items.}
+\item{\code{length}}{A integer scalar of the items length.}
 
-\item{\code{class}}{Class of the dictionary values.}
+\item{\code{class}}{A character scalar of value class.}
 
-\item{\code{overwrite}}{Wheather to overwrite value if key is overlapped.}
+\item{\code{overwrite}}{A logical scalar wheather to overwrite value if key is
+overlapped.}
 }
 \if{html}{\out{</div>}}
 }
@@ -103,10 +111,13 @@ Construct a new Dict object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Key and value pairs.}
+\item{\code{...}}{Any length of key and value pairs. If you would like to use
+a not valid R name as a key, you must wrap it by backquotes or convert it
+using \code{\link{make.names}}.}
 
-\item{\code{.class}}{A character scalar of value object's class. If "any"
-(default), value can contain any type of object.}
+\item{\code{.class}}{A character scalar of value object's class. It must be an
+output from \code{\link{class}}. If "any" (default), value can contain
+any type of object.}
 
 \item{\code{.overwrite}}{A logical scalar. Whether to overwrite the value if the
 key is overlapped.}
@@ -121,7 +132,8 @@ A new Dict object
 \if{html}{\out{<a id="method-print"></a>}}
 \if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
-Print Dict \code{items} which is normal \code{tbl_df} by tibble package.
+Print Dict \code{items} which is normal \code{\link{tbl_df}} by tibble
+package.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Dict$print(...)}\if{html}{\out{</div>}}
 }
@@ -129,7 +141,7 @@ Print Dict \code{items} which is normal \code{tbl_df} by tibble package.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Additional aruguments passed to \code{print.tbl}.}
+\item{\code{...}}{Additional aruguments passed to \code{\link{print.tbl}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -149,7 +161,9 @@ Adds key-value objects to the dictionary.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Key and value pairs.}
+\item{\code{...}}{Any length of key and value pairs. If you would like to use
+a not valid R name as a key, you must wrap it by backquotes or convert it
+using \code{\link{make.names}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -161,7 +175,7 @@ Dict object by \code{invisible(self)}.
 \if{html}{\out{<a id="method-has"></a>}}
 \if{latex}{\out{\hypertarget{method-has}{}}}
 \subsection{Method \code{has()}}{
-Check if the object contains specified key.
+Check if the object contains the key.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Dict$has(key = NULL)}\if{html}{\out{</div>}}
 }
@@ -169,7 +183,7 @@ Check if the object contains specified key.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{key}}{A character scalar.}
+\item{\code{key}}{A character scalar of the dictionary key.}
 }
 \if{html}{\out{</div>}}
 }
@@ -181,7 +195,7 @@ A logical scalar.
 \if{html}{\out{<a id="method-get"></a>}}
 \if{latex}{\out{\hypertarget{method-get}{}}}
 \subsection{Method \code{get()}}{
-Retrieves object with key `key` from the dictionary.
+Retrieves object with a key from the dictionary.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Dict$get(key = NULL, default = NULL)}\if{html}{\out{</div>}}
 }
@@ -193,20 +207,21 @@ Retrieves object with key `key` from the dictionary.
 If key is NULL and items is not empty, the first value is returned.}
 
 \item{\code{default}}{A default value returned, if the key is not found. Default
-is NULL.}
+is \code{NULL}.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A object with corresponding key.
+A object with the key.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-remove"></a>}}
 \if{latex}{\out{\hypertarget{method-remove}{}}}
 \subsection{Method \code{remove()}}{
-Removes a key-value from the dictionary by a key. If key is not valid,
-this function throw an error. Use \code{self$has()} to ensure key
+Removes a key-value from the dictionary by a key. If the key is a not
+valid key, this function throw an error. Use \code{self$has()} to check
+key availability.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Dict$remove(key = NULL)}\if{html}{\out{</div>}}
 }
@@ -214,7 +229,7 @@ this function throw an error. Use \code{self$has()} to ensure key
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{key}}{A character scalar.}
+\item{\code{key}}{A character scalar of the dictionary key.}
 }
 \if{html}{\out{</div>}}
 }
@@ -234,7 +249,8 @@ Sort dictionary by keys.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{desc}}{A logical scalar.}
+\item{\code{desc}}{A logical scalar whether to sort in descending order. Default
+is \code{FALSE}.}
 }
 \if{html}{\out{</div>}}
 }

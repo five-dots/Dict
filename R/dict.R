@@ -1,24 +1,26 @@
 #' @title Dictionary Class
 #'
 #' @description
-#' Key-value dictionary class.
+#' A key-value dictionary data structure based on R6 class.
 #'
 #' @examples
-#' ages <- Dict$new(Charlie = 40L, Alice = 30L, Bob = 25L,
-#'                  .class = "integer", .overwrite = TRUE)
+#' ages <- Dict$new(
+#'   Charlie = 40L,
+#'   Alice = 30L,
+#'   Bob = 25L,
+#'   .class = "integer",
+#'   .overwrite = TRUE
+#' )
 #'
-#' ## Get by key
+#' ## Get a value
 #' ages["Bob"] # or ages$get("Bob")
+#' ages[3] # also by integer index
 #'
-#' ## Get by row index of self$items
-#' ages[3] # or ages$get(3)
-#'
-#' ## Set a default value if the key does not exists (default = NULL)
+#' ## Return the default value if the key does not exists (default = NULL)
 #' ages["Michael", default = 30]
 #'
-#' ## Add new item
+#' ## Add a new item
 #' ages["John"] <- 18L # or ages$add(John = 18L)
-#' ages["John"]
 #'
 #' ## Can be overridden if .overwrite = TRUE
 #' ages["Bob"] <- 26L
@@ -32,9 +34,10 @@
 #' ages$has("Bob")
 #'
 #' ## Some additonal fields
-#' ages$items # a tbl_df of items
-#' ages$keys # a character vector of keys
+#' ages$keys   # a character vector of keys
 #' ages$values # a list of values
+#' ages$items  # a tbl_df of items
+#' ages$length # items length
 #'
 #' ## Sort by keys
 #' ages$sort()
@@ -51,11 +54,16 @@ Dict <- R6::R6Class(
   public = rlang::list2(
     #' @description
     #' Construct a new Dict object.
-    #' @param ... Key and value pairs.
-    #' @param .class A character scalar of value object's class. If "any"
-    #' (default), value can contain any type of object.
+    #'
+    #' @param ... Any length of key and value pairs. If you would like to use
+    #' a not valid R name as a key, you must wrap it by backquotes or convert it
+    #' using \code{\link{make.names}}.
+    #' @param .class A character scalar of value object's class. It must be an
+    #' output from \code{\link{class}}. If "any" (default), value can contain
+    #' any type of object.
     #' @param .overwrite A logical scalar. Whether to overwrite the value if the
     #' key is overlapped.
+    #'
     #' @return A new Dict object
     initialize = function(..., .class = "any", .overwrite = TRUE) {
       if (!rlang::is_string(.class))
@@ -67,8 +75,11 @@ Dict <- R6::R6Class(
       self$add(...)
     },
     #' @description
-    #' Print Dict \code{items} which is normal \code{tbl_df} by tibble package.
-    #' @param ... Additional aruguments passed to \code{print.tbl}.
+    #' Print Dict \code{items} which is normal \code{\link{tbl_df}} by tibble
+    #' package.
+    #'
+    #' @param ... Additional aruguments passed to \code{\link{print.tbl}}.
+    #'
     #' @return Dict object by \code{invisible(self)}.
     print = function(...) {
       print(private$.items, ...)
@@ -76,7 +87,11 @@ Dict <- R6::R6Class(
     },
     #' @description
     #' Adds key-value objects to the dictionary.
-    #' @param ... Key and value pairs.
+    #'
+    #' @param ... Any length of key and value pairs. If you would like to use
+    #' a not valid R name as a key, you must wrap it by backquotes or convert it
+    #' using \code{\link{make.names}}.
+    #'
     #' @return Dict object by \code{invisible(self)}.
     add = function(...) {
       new_items <- private$.as_dict(...)
@@ -101,8 +116,8 @@ Dict <- R6::R6Class(
       invisible(self)
     },
     #' @description
-    #' Check if the object contains specified key.
-    #' @param key A character scalar.
+    #' Check if the object contains the key.
+    #' @param key A character scalar of the dictionary key.
     #' @return A logical scalar.
     has = function(key = NULL) {
       if (!rlang::is_string(key))
@@ -110,12 +125,12 @@ Dict <- R6::R6Class(
       key %in% self$keys
     },
     #' @description
-    #' Retrieves object with key `key` from the dictionary.
+    #' Retrieves object with a key from the dictionary.
     #' @param key A character scalar, integer scalar of items index or NULL.
     #' If key is NULL and items is not empty, the first value is returned.
     #' @param default A default value returned, if the key is not found. Default
-    #' is NULL.
-    #' @return A object with corresponding key.
+    #' is \code{NULL}.
+    #' @return A object with the key.
     get = function(key = NULL, default = NULL) {
       ## Normalize integer key to character one. NULL returned if no key found.
       key <- private$.normalize_key(key)
@@ -126,10 +141,10 @@ Dict <- R6::R6Class(
         purrr::pluck(1)
     },
     #' @description
-    #' Removes a key-value from the dictionary by a key. If key is not valid,
-    #' this function throw an error. Use \code{self$has()} to ensure key
-    #" "availability.
-    #' @param key A character scalar.
+    #' Removes a key-value from the dictionary by a key. If the key is a not
+    #' valid key, this function throw an error. Use \code{self$has()} to check
+    #' key availability.
+    #' @param key A character scalar of the dictionary key.
     #' @return Dict object by \code{invisible(self)}.
     remove = function(key = NULL) {
       if (self$has(key)) {
@@ -141,7 +156,8 @@ Dict <- R6::R6Class(
     },
     #' @description
     #' Sort dictionary by keys.
-    #' @param desc A logical scalar.
+    #' @param desc A logical scalar whether to sort in descending order. Default
+    #' is \code{FALSE}.
     #' @return Dict object by \code{invisible(self)}.
     sort = function(desc = FALSE) {
       if (!rlang::is_bool(desc))
@@ -162,17 +178,18 @@ Dict <- R6::R6Class(
     },
   ),
   active = rlang::list2(
-    #' @field items Items of the dictionary.
+    #' @field items A tbl_df of the dictionary items.
     items = function() private$.items,
-    #' @field keys Keys of the dictionary.
+    #' @field keys A character vector of the dictionary keys.
     keys = function() private$.items$key,
-    #' @field values Values of the dictionary.
+    #' @field values A list of of the dictionary values.
     values = function() private$.items$value,
-    #' @field length Length of items.
+    #' @field length A integer scalar of the items length.
     length = function() nrow(private$.items),
-    #' @field class Class of the dictionary values.
+    #' @field class A character scalar of value class.
     class = function() private$.class,
-    #' @field overwrite Wheather to overwrite value if key is overlapped.
+    #' @field overwrite A logical scalar wheather to overwrite value if key is
+    #' overlapped.
     overwrite = function() private$.overwrite,
   ),
   private = rlang::list2(
@@ -215,12 +232,17 @@ Dict <- R6::R6Class(
   )
 )
 
+
 #' Dict Class Constructor
 #'
 #' @rdname Dict
 #'
-#' @param ... Key and value pairs.
-#' @param .class A character scalar. Value object's class.
+#' @param ... Any length of key and value pairs. If you would like to use
+#' a not valid R name as a key, you must wrap it by backquotes or convert it
+#' using \code{\link{make.names}}.
+#' @param .class A character scalar of value object's class. It must be an
+#' output from \code{\link{class}}. If "any" (default), value can contain
+#' any type of object.
 #' @param .overwrite A logical scalar. Whether to overwrite the value if the
 #' key is overlapped.
 #'
@@ -229,10 +251,12 @@ dict <- function(..., .class = "any", .overwrite = TRUE) {
   Dict$new(..., .class = .class, .overwrite = .overwrite)
 }
 
+
 #' @export
 `[.Dict` <- function(x, key = NULL, default = NULL) {
   x$get(key, default)
 }
+
 
 #' @export
 `[<-.Dict` <- function(x, key, value) {
