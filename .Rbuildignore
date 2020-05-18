@@ -6,6 +6,7 @@
 ^NEWS\.md$
 ^\.travis\.yml$
 ^.lintr$
+^.Renv-version$
 
 ^LICENSE\.md$
 ^TODOs\.org$
