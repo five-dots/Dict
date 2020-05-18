@@ -141,7 +141,7 @@ package.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Additional aruguments passed to \code{\link{print.tbl}}.}
+\item{\code{...}}{Additional aruguments passed to \code{print.tbl}.}
 }
 \if{html}{\out{</div>}}
 }

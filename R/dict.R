@@ -78,7 +78,7 @@ Dict <- R6::R6Class(
     #' Print Dict \code{items} which is normal \code{\link{tbl_df}} by tibble
     #' package.
     #'
-    #' @param ... Additional aruguments passed to \code{\link{print.tbl}}.
+    #' @param ... Additional aruguments passed to \code{print.tbl}.
     #'
     #' @return Dict object by \code{invisible(self)}.
     print = function(...) {
@@ -97,7 +97,7 @@ Dict <- R6::R6Class(
       new_items <- private$.as_dict(...)
       all_items <- dplyr::bind_rows(private$.items, new_items)
       if (any(new_items$key %in% self$keys)) {
-        ## Key duplication case
+        ## Key duplicate case
         ## Slice index 1: keep old item (.overwrite=FALSE)
         ## Slice index 2: Replace old item with new one (.overwrite=TRUE)
         index <- dplyr::if_else(self$overwrite, 2, 1)
@@ -110,6 +110,7 @@ Dict <- R6::R6Class(
           }) %>%
           dplyr::ungroup()
       } else {
+        ## Not duplicate case
         items <- all_items
       }
       private$.items <- items
