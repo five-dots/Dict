@@ -6,6 +6,7 @@
 ^\.travis\.yml$
 ^.lintr$
 ^.Renv-version$
+^CRAN-RELEASE$
 
 ^LICENSE\.md$
 ^TODOs\.org$
