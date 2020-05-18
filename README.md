@@ -3,12 +3,12 @@
 
 ## Overview
 
-`Dict` is a R package which implements a key-value dictionary data structure based on [R6](https://github.com/r-lib/R6) class. It is designed to be similar usages with other languages' dictionary implementations (e.g. Pytyon).
+`Dict` is a R package which implements a key-value dictionary data structure based on [R6](https://github.com/r-lib/R6) class. It is designed to be similar usages with other languages' dictionary implementations (e.g. Python).
 
 R's `vector` and `list`, of course can have names, so you can get and set value by a name (key) like a dictionary. Using regular data structure must be a recommended way in the most of cases. But, if you are interested in the following characteristics, this package is for you!
 
--   **Reference semantics**: Usefull to keep project wide parametes or states referred from mutiple models.
--   **Inheritance**: Easilly expand features according to your needs.
+-   **Reference semantics**: Useful to keep project wide parameters or states referred from multiple models.
+-   **Inheritance**: Easily expand features according to your needs.
 
 ## Installation
 
@@ -46,12 +46,12 @@ ages
     2 Alice   <int [1]>
     3 Bob     <int [1]>
 
-#### Some NOTEs
+#### Some notes
 
 -   `dict()` can be used instead of `Dict$new()` as some IDEs cloud not show R6's function arguments hint.
 -   `.class` specifies what kind of objects the dictionary can contains. Default "any" means the dict cloud have any type of value.
--   `.overwrite` controls the behaviour when the same key is added.
--   Dict keep key-value items in `tbl_df` from tibble package whose key is a character column and value is a list column. You can use variouse exisiting tooling for `data.frame` or `tibble` to maninpulate dict items.
+-   `.overwrite` controls the behavior when the same key is added.
+-   Dict keep key-value items in `tbl_df` from tibble package whose key is a character column and value is a list column. You can use various existing tooling for `data.frame` or `tibble` to manipulate dict items.
 
 ### Get a value
 
@@ -103,7 +103,7 @@ ages$get("Bob")
     
     [1] 26
 
-### Other methods and fileds
+### Other methods and fields
 
 Remove item:
 
