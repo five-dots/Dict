@@ -1,0 +1,14 @@
+
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^cran-comments\.md$
+^NEWS\.md$
+^\.travis\.yml$
+^.lintr$
+
+^LICENSE\.md$
+^TODOs\.org$
+^README\.org$
+^NEWS\.org$
+^DESIGN\.org$
