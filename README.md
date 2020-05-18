@@ -5,7 +5,7 @@
 
 `Dict` is a R package which implements a key-value dictionary data structure based on [R6](https://github.com/r-lib/R6) class. It is designed to be similar usages with other languages' dictionary implementations (e.g. Pytyon).
 
-R's `vector` and `list` of course can have names, so you can get/set value by a name (key) like a dictionary. Using regular data structure must be a recommended way in the most of cases. But, if you are interested in the following characteristics, this package is for you!
+R's `vector` and `list`, of course can have names, so you can get and set value by a name (key) like a dictionary. Using regular data structure must be a recommended way in the most of cases. But, if you are interested in the following characteristics, this package is for you!
 
 -   **Reference semantics**: Usefull to keep project wide parametes or states referred from mutiple models.
 -   **Inheritance**: Easilly expand features according to your needs.
@@ -49,13 +49,13 @@ ages
 #### Some NOTEs
 
 -   `dict()` can be used instead of `Dict$new()` as some IDEs cloud not show R6's function arguments hint.
--   `.class` spefifies what kind of objects the dictionary can contains. Default "any" means the dict cloud have any type of value.
+-   `.class` specifies what kind of objects the dictionary can contains. Default "any" means the dict cloud have any type of value.
 -   `.overwrite` controls the behaviour when the same key is added.
--   Dict keep key-value items in `tbl_df` from tibble package whose key is a character column and value is a list column. You can use variouse exisiting toolings for `data.frame` or `tibble` to maninpulate dict items.
+-   Dict keep key-value items in `tbl_df` from tibble package whose key is a character column and value is a list column. You can use variouse exisiting tooling for `data.frame` or `tibble` to maninpulate dict items.
 
 ### Get a value
 
-Value can be access by both `Dict$get()` or `` `[` `` with a character key or integer index of `Dict$items` rows.
+A value can be access by both `Dict$get()` or `` `[` `` with a character key or integer index of items rows.
 
 ```R
 ages["Bob"]
@@ -79,9 +79,9 @@ ages["Michael", default = 30]
 
     [1] 30
 
-### Add new item
+### Add a new item
 
-Adding item also can be done by R6 methods `Dict$add()` or `` `[<-` ``.
+Adding a item also can be done by R6 methods `Dict$add()` or `` `[<-` ``.
 
 ```R
 ages["John"] <- 18L # or ages$add(John = 18L)
@@ -93,7 +93,7 @@ ages["John"]
 
 
 
-Can be overridden if `.overwrite = TRUE`.
+Can be overridden if `.overwrite = TRUE` (default).
 
 ```R
 ages["Bob"] <- 26L
@@ -105,7 +105,7 @@ ages$get("Bob")
 
 ### Other methods and fileds
 
--   Remove item
+Remove item:
 
 ```R
 ages$remove("Bob")
@@ -113,7 +113,7 @@ ages$remove("Bob")
 
 
 
--   Check if items contains a key
+Check if items contains a key:
 
 ```R
 ages$has("Bob")
@@ -123,7 +123,7 @@ ages$has("Bob")
 
 
 
--   Sort by keys
+Sort by keys:
 
 ```R
 ages$sort()
@@ -140,7 +140,7 @@ ages
 
 
 
--   Clear items
+Clear items:
 
 ```R
 ages$clear()
@@ -153,7 +153,7 @@ ages
 
 
 
--   Fields
+Fields:
 
 ```R
 ages$keys
