@@ -3,8 +3,8 @@ The first release submission of Dict package.
 
 ## Test environments
 
-* local Ubuntu 18.04 install, R 3.6.3
-* local OSX install, R 3.6.3
+* local Ubuntu 18.04 install, 3.6.3 and 4.0.0
+* local OSX 10.15.4 install, 3.6.3 and 4.0.0
 * win-builder (devel and release)
 
 
@@ -12,7 +12,7 @@ The first release submission of Dict package.
 
 There were not errors and warnings.
 
-There was 1 NOTE from win-builder (No NOTE from local):
+There was 1 NOTE from win-builder (No NOTE from local checks):
 
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Shun Asai <syun.asai@gmail.com>'
