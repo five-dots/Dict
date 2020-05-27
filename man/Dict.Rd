@@ -3,7 +3,7 @@
 \name{Dict}
 \alias{Dict}
 \alias{dict}
-\title{Dictionary Class}
+\title{R6 Based Key-Value Dictionary Implementation}
 \usage{
 dict(..., .class = "any", .overwrite = TRUE)
 }
@@ -23,11 +23,17 @@ key is overlapped.}
 A \code{Dict} class object.
 }
 \description{
-A key-value dictionary data structure based on R6 class.
+A key-value dictionary data structure based on R6 class which is designed to
+be similar usages with other languages dictionary (e.g. Python) with
+reference semantics and extendabilities by R6.
 }
 \examples{
-## Instantiation (dict() is a wrapper for Dict$new())
-ages <- dict(
+
+## ------------------------------------------------
+## Method `Dict$new`
+## ------------------------------------------------
+
+ages <- Dict$new(
   Charlie = 40L,
   Alice = 30L,
   Bob = 25L,
@@ -35,41 +41,50 @@ ages <- dict(
   .overwrite = TRUE
 )
 
-## Get a value
-ages["Bob"] # or ages$get("Bob")
+## ------------------------------------------------
+## Method `Dict$print`
+## ------------------------------------------------
+
+ages$print(n = Inf)
+
+## ------------------------------------------------
+## Method `Dict$add`
+## ------------------------------------------------
+
+ages$add(John = 18L)
+ages["John"] <- 18L
+
+## ------------------------------------------------
+## Method `Dict$has`
+## ------------------------------------------------
+
+ages$has("Bob")
+
+## ------------------------------------------------
+## Method `Dict$get`
+## ------------------------------------------------
+
+ages$get("Bob")
+ages["Bob"]
 ages[3] # also by integer index
 
-## Return the default value if the key does not exists (default = NULL)
-ages["Michael", default = 30]
+## ------------------------------------------------
+## Method `Dict$remove`
+## ------------------------------------------------
 
-## Add a new item
-ages["John"] <- 18L # or ages$add(John = 18L)
-
-## Can be overridden if .overwrite = TRUE (default)
-ages["Bob"] <- 26L
-ages$get("Bob")
-
-## Check if items contains a key
-ages$has("Bob")
-
-## Remove item
 ages$remove("Bob")
-ages$has("Bob")
 
-## Sort by keys
+## ------------------------------------------------
+## Method `Dict$sort`
+## ------------------------------------------------
+
 ages$sort()
-ages
 
-## Some additonal fields
-ages$keys   # a character vector of keys
-ages$values # a list of values
-ages$items  # a tbl_df of items
-ages$length # items length
+## ------------------------------------------------
+## Method `Dict$clear`
+## ------------------------------------------------
 
-## Clear
 ages$clear()
-ages
-
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -131,13 +146,27 @@ key is overlapped.}
 \subsection{Returns}{
 A \code{Dict} class object.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ages <- Dict$new(
+  Charlie = 40L,
+  Alice = 30L,
+  Bob = 25L,
+  .class = "integer",
+  .overwrite = TRUE
+)
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
-Print Dict \code{items} which is a \code{\link{tbl_df}} object by tibble
-package.
+Print Dict \code{items} which is a \code{\link[tibble]{tbl_df-class}}
+object by tibble package.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Dict$print(...)}\if{html}{\out{</div>}}
 }
@@ -152,6 +181,14 @@ package.
 \subsection{Returns}{
 \code{Dict} object by \code{invisible(self)}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ages$print(n = Inf)
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-add"></a>}}
@@ -174,6 +211,15 @@ using \code{\link{make.names}}.}
 \subsection{Returns}{
 \code{Dict} object by \code{invisible(self)}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ages$add(John = 18L)
+ages["John"] <- 18L
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-has"></a>}}
@@ -194,6 +240,14 @@ Check if the object contains the key.
 \subsection{Returns}{
 A logical scalar.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ages$has("Bob")
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get"></a>}}
@@ -218,6 +272,16 @@ is \code{NULL}.}
 \subsection{Returns}{
 A object with the key.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ages$get("Bob")
+ages["Bob"]
+ages[3] # also by integer index
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-remove"></a>}}
@@ -240,6 +304,14 @@ key availability.
 \subsection{Returns}{
 \code{Dict} object by \code{invisible(self)}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ages$remove("Bob")
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-sort"></a>}}
@@ -261,6 +333,14 @@ is \code{FALSE}.}
 \subsection{Returns}{
 \code{Dict} object by \code{invisible(self)}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ages$sort()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clear"></a>}}
@@ -274,6 +354,14 @@ Clear dictionary.
 \subsection{Returns}{
 \code{Dict} object by \code{invisible(self)}.
 }
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{ages$clear()
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

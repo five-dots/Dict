@@ -1,52 +1,9 @@
-#' @title Dictionary Class
+#' @title R6 Based Key-Value Dictionary Implementation
 #'
 #' @description
-#' A key-value dictionary data structure based on R6 class.
-#'
-#' @examples
-#' ## Instantiation (dict() is a wrapper for Dict$new())
-#' ages <- dict(
-#'   Charlie = 40L,
-#'   Alice = 30L,
-#'   Bob = 25L,
-#'   .class = "integer",
-#'   .overwrite = TRUE
-#' )
-#'
-#' ## Get a value
-#' ages["Bob"] # or ages$get("Bob")
-#' ages[3] # also by integer index
-#'
-#' ## Return the default value if the key does not exists (default = NULL)
-#' ages["Michael", default = 30]
-#'
-#' ## Add a new item
-#' ages["John"] <- 18L # or ages$add(John = 18L)
-#'
-#' ## Can be overridden if .overwrite = TRUE (default)
-#' ages["Bob"] <- 26L
-#' ages$get("Bob")
-#'
-#' ## Check if items contains a key
-#' ages$has("Bob")
-#'
-#' ## Remove item
-#' ages$remove("Bob")
-#' ages$has("Bob")
-#'
-#' ## Sort by keys
-#' ages$sort()
-#' ages
-#'
-#' ## Some additonal fields
-#' ages$keys   # a character vector of keys
-#' ages$values # a list of values
-#' ages$items  # a tbl_df of items
-#' ages$length # items length
-#'
-#' ## Clear
-#' ages$clear()
-#' ages
+#' A key-value dictionary data structure based on R6 class which is designed to
+#' be similar usages with other languages dictionary (e.g. Python) with
+#' reference semantics and extendabilities by R6.
 #'
 #' @export
 Dict <- R6::R6Class(
@@ -66,6 +23,15 @@ Dict <- R6::R6Class(
     #' key is overlapped.
     #'
     #' @return A \code{Dict} class object.
+    #'
+    #' @examples
+    #' ages <- Dict$new(
+    #'   Charlie = 40L,
+    #'   Alice = 30L,
+    #'   Bob = 25L,
+    #'   .class = "integer",
+    #'   .overwrite = TRUE
+    #' )
     initialize = function(..., .class = "any", .overwrite = TRUE) {
       if (!rlang::is_string(.class))
         stop(".class must be a character scalar.", call. = FALSE)
@@ -77,12 +43,15 @@ Dict <- R6::R6Class(
     },
 
     #' @description
-    #' Print Dict \code{items} which is a \code{\link{tbl_df}} object by tibble
-    #' package.
+    #' Print Dict \code{items} which is a \code{\link[tibble]{tbl_df-class}}
+    #' object by tibble package.
     #'
     #' @param ... Additional arguments passed to \code{print.tbl}.
     #'
     #' @return \code{Dict} object by \code{invisible(self)}.
+    #'
+    #' @examples
+    #' ages$print(n = Inf)
     print = function(...) {
       print(private$.items, ...)
       invisible(self)
@@ -96,6 +65,10 @@ Dict <- R6::R6Class(
     #' using \code{\link{make.names}}.
     #'
     #' @return \code{Dict} object by \code{invisible(self)}.
+    #'
+    #' @examples
+    #' ages$add(John = 18L)
+    #' ages["John"] <- 18L
     add = function(...) {
       new_items <- private$.as_dict(...)
       all_items <- dplyr::bind_rows(private$.items, new_items)
@@ -126,6 +99,9 @@ Dict <- R6::R6Class(
     #' @param key A character scalar of the dictionary key.
     #'
     #' @return A logical scalar.
+    #'
+    #' @examples
+    #' ages$has("Bob")
     has = function(key = NULL) {
       if (!rlang::is_string(key))
         stop("key must be a character scalar.", call. = FALSE)
@@ -141,6 +117,11 @@ Dict <- R6::R6Class(
     #' is \code{NULL}.
     #'
     #' @return A object with the key.
+    #'
+    #' @examples
+    #' ages$get("Bob")
+    #' ages["Bob"]
+    #' ages[3] # also by integer index
     get = function(key = NULL, default = NULL) {
       ## Normalize integer key to character one. NULL returned if no key found.
       key <- private$.normalize_key(key)
@@ -159,6 +140,9 @@ Dict <- R6::R6Class(
     #' @param key A character scalar of the dictionary key.
     #'
     #' @return \code{Dict} object by \code{invisible(self)}.
+    #'
+    #' @examples
+    #' ages$remove("Bob")
     remove = function(key = NULL) {
       if (self$has(key)) {
         private$.items <- dplyr::filter(private$.items, key != !!key)
@@ -175,6 +159,9 @@ Dict <- R6::R6Class(
     #' is \code{FALSE}.
     #'
     #' @return \code{Dict} object by \code{invisible(self)}.
+    #'
+    #' @examples
+    #' ages$sort()
     sort = function(desc = FALSE) {
       if (!rlang::is_bool(desc))
         stop("desc must be a logical scalar.", call. = FALSE)
@@ -190,6 +177,9 @@ Dict <- R6::R6Class(
     #' Clear dictionary.
     #'
     #' @return \code{Dict} object by \code{invisible(self)}.
+    #'
+    #' @examples
+    #' ages$clear()
     clear = function() {
       private$.items <- tibble::tibble(key = character(), value = list())
       invisible(self)
