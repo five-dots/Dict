@@ -106,12 +106,12 @@ Dict <- R6::R6Class(
         ## Key duplicate case
         ## Slice index 1: keep old item (.overwrite=FALSE)
         ## Slice index 2: Replace old item with new one (.overwrite=TRUE)
-        index <- dplyr::if_else(self$overwrite, 2, 1)
+        index <- dplyr::if_else(self$overwrite, 2L, 1L)
         items <- all_items %>%
           dplyr::group_by(key) %>%
           dplyr::group_modify(function(rows, ...) {
             ## Skip if no duplicate rows
-            if (nrow(rows) == 1) return(rows)
+            if (nrow(rows) == 1L) return(rows)
             dplyr::slice(rows, index)
           }) %>%
           dplyr::ungroup()
@@ -151,7 +151,7 @@ Dict <- R6::R6Class(
       private$.items %>%
         dplyr::filter(key == !!key) %>%
         dplyr::pull(value) %>%
-        purrr::pluck(1)
+        purrr::pluck(1L)
     },
 
     #' @description
@@ -238,9 +238,9 @@ Dict <- R6::R6Class(
     .normalize_key = function(key = NULL) {
       ## Empty items: -> NULL
       valid_keys <- self$keys
-      if (length(valid_keys) == 0) return(NULL)
+      if (length(valid_keys) == 0L) return(NULL)
       ## key = NULL: -> the first key
-      if (is.null(key)) return(valid_keys[1])
+      if (is.null(key)) return(valid_keys[1L])
       ## key = character: -> return as-is if exists
       if (rlang::is_string(key) && key %in% valid_keys) return(key)
       ## key = integer: -> convert to character key
