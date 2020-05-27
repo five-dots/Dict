@@ -5,6 +5,8 @@
 \alias{dict}
 \title{Dictionary Class}
 \usage{
+Dict$new(..., .class = "any", .overwrite = TRUE)
+
 dict(..., .class = "any", .overwrite = TRUE)
 }
 \arguments{
@@ -13,17 +15,21 @@ a not valid R name as a key, you must wrap it by backquotes or convert it
 using \code{\link{make.names}}.}
 
 \item{.class}{A character scalar of value object's class. It must be an
-output from \code{\link{class}}. If "any" (default), value can contain
+output from \code{\link{class}}. If \code{"any"} (default), value can contain
 any type of object.}
 
-\item{.overwrite}{A logical scalar. Whether to overwrite the value if the
+\item{.overwrite}{A logical scalar whether to overwrite the value if the
 key is overlapped.}
+}
+\value{
+A \code{Dict} class object.
 }
 \description{
 A key-value dictionary data structure based on R6 class.
 }
 \examples{
-ages <- Dict$new(
+## Instantiation (dict() is a wrapper for Dict$new())
+ages <- dict(
   Charlie = 40L,
   Alice = 30L,
   Bob = 25L,
@@ -41,7 +47,7 @@ ages["Michael", default = 30]
 ## Add a new item
 ages["John"] <- 18L # or ages$add(John = 18L)
 
-## Can be overridden if .overwrite = TRUE
+## Can be overridden if .overwrite = TRUE (default)
 ages["Bob"] <- 26L
 ages$get("Bob")
 
@@ -52,15 +58,15 @@ ages$has("Bob")
 ages$remove("Bob")
 ages$has("Bob")
 
+## Sort by keys
+ages$sort()
+ages
+
 ## Some additonal fields
 ages$keys   # a character vector of keys
 ages$values # a list of values
 ages$items  # a tbl_df of items
 ages$length # items length
-
-## Sort by keys
-ages$sort()
-ages
 
 ## Clear
 ages$clear()
@@ -70,7 +76,7 @@ ages
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{items}}{A tbl_df of the dictionary items.}
+\item{\code{items}}{A \code{tbl_df} of the dictionary items.}
 
 \item{\code{keys}}{A character vector of the dictionary keys.}
 
@@ -116,23 +122,23 @@ a not valid R name as a key, you must wrap it by backquotes or convert it
 using \code{\link{make.names}}.}
 
 \item{\code{.class}}{A character scalar of value object's class. It must be an
-output from \code{\link{class}}. If "any" (default), value can contain
-any type of object.}
+output from \code{\link{class}}. If \code{"any"} (default), value can
+contain any type of object.}
 
-\item{\code{.overwrite}}{A logical scalar. Whether to overwrite the value if the
+\item{\code{.overwrite}}{A logical scalar whether to overwrite the value if the
 key is overlapped.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new Dict object
+A \code{Dict} class object.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
-Print Dict \code{items} which is normal \code{\link{tbl_df}} by tibble
+Print Dict \code{items} which is a \code{\link{tbl_df}} object by tibble
 package.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Dict$print(...)}\if{html}{\out{</div>}}
@@ -146,14 +152,14 @@ package.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Dict object by \code{invisible(self)}.
+\code{Dict} object by \code{invisible(self)}.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-add"></a>}}
 \if{latex}{\out{\hypertarget{method-add}{}}}
 \subsection{Method \code{add()}}{
-Adds key-value objects to the dictionary.
+Add key-value objects to the dictionary.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Dict$add(...)}\if{html}{\out{</div>}}
 }
@@ -168,7 +174,7 @@ using \code{\link{make.names}}.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Dict object by \code{invisible(self)}.
+\code{Dict} object by \code{invisible(self)}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -234,7 +240,7 @@ key availability.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Dict object by \code{invisible(self)}.
+\code{Dict} object by \code{invisible(self)}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -255,7 +261,7 @@ is \code{FALSE}.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Dict object by \code{invisible(self)}.
+\code{Dict} object by \code{invisible(self)}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -268,7 +274,7 @@ Clear dictionary.
 }
 
 \subsection{Returns}{
-Dict object by \code{invisible(self)}.
+\code{Dict} object by \code{invisible(self)}.
 }
 }
 \if{html}{\out{<hr>}}
