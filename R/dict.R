@@ -3,9 +3,6 @@
 #' @description
 #' A key-value dictionary data structure based on R6 class.
 #'
-#' @usage
-#' Dict$new(..., .class = "any", .overwrite = TRUE)
-#'
 #' @examples
 #' ## Instantiation (dict() is a wrapper for Dict$new())
 #' ages <- dict(

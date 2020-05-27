@@ -5,8 +5,6 @@
 \alias{dict}
 \title{Dictionary Class}
 \usage{
-Dict$new(..., .class = "any", .overwrite = TRUE)
-
 dict(..., .class = "any", .overwrite = TRUE)
 }
 \arguments{
