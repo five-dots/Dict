@@ -7,6 +7,8 @@ Authors@R:
            role = c("aut", "cre", "cph"),
            email = "syun.asai@gmail.com")
 Description: A key-value dictionary data structure based on R6 class which is designed to be similar usages with other languages dictionary (e.g. Python) with reference semantics and extendabilities by R6.
+URL: https://github.com/five-dots/Dict
+BugReports: https://github.com/five-dots/Dict/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
