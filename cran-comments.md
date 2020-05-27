@@ -1,5 +1,13 @@
 
-The first release submission of Dict package.
+The second submission of the first release of Dict package.
+
+## Changes from the first submission
+
+- Update the Description field of DESCRIPTION file
+- Add \value to Dict.Rd
+- Add examples to all R6 methods
+- Assign "cph" role to myself
+
 
 ## Test environments
 
