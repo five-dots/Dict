@@ -1,5 +1,10 @@
 
-The second submission of the first release of Dict package.
+The third submission of the first release of Dict package.
+
+## Changes from the second submission
+
+- Add single quotes ('Python') in the Description field of DESCRIPTION file
+
 
 ## Changes from the first submission
 
