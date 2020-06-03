@@ -1,6 +1,8 @@
 
 # Dict
 
+`[![](https://www.r-pkg.org/badges/version/Dict?color=green)](https://cran.r-project.org/package=Dict)`
+
 ## Overview
 
 `Dict` is a R package which implements a key-value dictionary data structure based on [R6](https://github.com/r-lib/R6) class. It is designed to be similar usages with other languages' dictionary implementations (e.g. Python).
