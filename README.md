@@ -2,7 +2,7 @@
 # Dict
 
 [![](https://www.r-pkg.org/badges/version/Dict?color=green)](https://cran.r-project.org/package=Dict)
-[\![](<https://www.r-pkg.org/badges/version/Dict?color=green>)](<https://cran.r-project.org/package=Dict>)
+[![](http://cranlogs.r-pkg.org/badges/last-month/Dict?color=blue)](https://cran.r-project.org/package=Dict)
 
 ## Overview
 
