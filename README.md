@@ -4,6 +4,7 @@
 [![](https://www.r-pkg.org/badges/version/Dict?color=green)](https://cran.r-project.org/package=Dict)
 [![](http://cranlogs.r-pkg.org/badges/last-month/Dict?color=blue)](https://cran.r-project.org/package=Dict)
 [![](https://travis-ci.org/five-dots/Dict.svg?branch=master)](https://travis-ci.org/five-dots/Dict)
+[![codecov](https://codecov.io/gh/five-dots/Dict/branch/master/graph/badge.svg)](https://codecov.io/gh/five-dots/Dict)
 
 ## Overview
 
