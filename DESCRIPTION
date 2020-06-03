@@ -1,6 +1,6 @@
 Package: Dict
 Title: R6 Based Key-Value Dictionary Implementation
-Version: 0.1.0
+Version: 0.1.0.90000
 Authors@R: 
     person(given = "Shun",
            family = "Asai",
