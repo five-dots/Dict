@@ -71,6 +71,12 @@ Dict <- R6::R6Class(
     #' ages["John"] <- 18L
     add = function(...) {
       new_items <- private$.as_dict(...)
+
+      ## Return if dots is empty
+      if (nrow(new_items) == 0) {
+        return(invisible(self))
+      }
+
       all_items <- dplyr::bind_rows(private$.items, new_items)
       if (any(new_items$key %in% self$keys)) {
         ## Key duplicate case
