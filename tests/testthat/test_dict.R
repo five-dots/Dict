@@ -105,3 +105,20 @@ test_that("Dict (class=data.frame) instance works", {
   expect_equal(d$keys, c("iris"))
 
 })
+
+test_that("Dict (empty items) instance works", {
+
+  d <- dict()
+
+  ## basic
+  expect_is(d, "Dict")
+  expect_is(d, "R6")
+
+  expect_equal(d$class, "any")
+  expect_equal(d$overwrite, TRUE)
+  expect_is(d$items, "tbl")
+  expect_equal(d$keys, character())
+  expect_equal(d$values, list())
+  expect_equal(d$length, 0)
+
+})
