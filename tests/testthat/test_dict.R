@@ -22,11 +22,15 @@ test_that("Dict (overwrite=TRUE) instance works", {
   expect_equal(d$get(1), "aaa")
   expect_equal(d["a"], "aaa")
   expect_equal(d[1], "aaa")
-  expect_null(d$get("d"))
+  ## Suppress a following warning by {withr} when using expect_null, expect_true, expect_false
+  ## "Changing language has no effect when envvar LANG='C'"
+  suppressWarnings(expect_null(d$get("d")))
 
   ## has
-  expect_true(d$has("a"))
-  expect_false(d$has("d"))
+  suppressWarnings({
+    expect_true(d$has("a"))
+    expect_false(d$has("d"))
+  })
   expect_error(d$has(1), "key must be a character scalar.")
   expect_error(d$has(NULL), "key must be a character scalar.")
 
@@ -94,7 +98,7 @@ test_that("Dict (class=data.frame) instance works", {
 
   ## add (overwrite)
   d$add(mtcars = iris)
-  expect_true(dplyr::setequal(d$get("mtcars"), iris))
+  suppressWarnings(expect_true(dplyr::setequal(d$get("mtcars"), iris)))
 
   ## remove
   d$remove("mtcars")
