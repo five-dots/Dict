@@ -107,20 +107,20 @@ overlapped.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Dict$new()}}
-\item \href{#method-print}{\code{Dict$print()}}
-\item \href{#method-add}{\code{Dict$add()}}
-\item \href{#method-has}{\code{Dict$has()}}
-\item \href{#method-get}{\code{Dict$get()}}
-\item \href{#method-remove}{\code{Dict$remove()}}
-\item \href{#method-sort}{\code{Dict$sort()}}
-\item \href{#method-clear}{\code{Dict$clear()}}
-\item \href{#method-clone}{\code{Dict$clone()}}
+\item \href{#method-Dict-new}{\code{Dict$new()}}
+\item \href{#method-Dict-print}{\code{Dict$print()}}
+\item \href{#method-Dict-add}{\code{Dict$add()}}
+\item \href{#method-Dict-has}{\code{Dict$has()}}
+\item \href{#method-Dict-get}{\code{Dict$get()}}
+\item \href{#method-Dict-remove}{\code{Dict$remove()}}
+\item \href{#method-Dict-sort}{\code{Dict$sort()}}
+\item \href{#method-Dict-clear}{\code{Dict$clear()}}
+\item \href{#method-Dict-clone}{\code{Dict$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Dict-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-new}{}}}
 \subsection{Method \code{new()}}{
 Construct a new Dict object.
 \subsection{Usage}{
@@ -162,8 +162,8 @@ A \code{Dict} class object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-Dict-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-print}{}}}
 \subsection{Method \code{print()}}{
 Print Dict \code{items} which is a \code{\link[tibble]{tbl_df-class}}
 object by tibble package.
@@ -191,8 +191,8 @@ object by tibble package.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-add"></a>}}
-\if{latex}{\out{\hypertarget{method-add}{}}}
+\if{html}{\out{<a id="method-Dict-add"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-add}{}}}
 \subsection{Method \code{add()}}{
 Add key-value objects to the dictionary.
 \subsection{Usage}{
@@ -222,8 +222,8 @@ ages["John"] <- 18L
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-has"></a>}}
-\if{latex}{\out{\hypertarget{method-has}{}}}
+\if{html}{\out{<a id="method-Dict-has"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-has}{}}}
 \subsection{Method \code{has()}}{
 Check if the object contains the key.
 \subsection{Usage}{
@@ -250,8 +250,8 @@ A logical scalar.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-Dict-get"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-get}{}}}
 \subsection{Method \code{get()}}{
 Retrieves object with a key from the dictionary.
 \subsection{Usage}{
@@ -284,8 +284,8 @@ ages[3] # also by integer index
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-remove"></a>}}
-\if{latex}{\out{\hypertarget{method-remove}{}}}
+\if{html}{\out{<a id="method-Dict-remove"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-remove}{}}}
 \subsection{Method \code{remove()}}{
 Removes a key-value from the dictionary by a key. If the key is a not
 valid key, this function throw an error. Use \code{self$has()} to check
@@ -314,8 +314,8 @@ key availability.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-sort"></a>}}
-\if{latex}{\out{\hypertarget{method-sort}{}}}
+\if{html}{\out{<a id="method-Dict-sort"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-sort}{}}}
 \subsection{Method \code{sort()}}{
 Sort dictionary by keys.
 \subsection{Usage}{
@@ -343,8 +343,8 @@ is \code{FALSE}.}
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clear"></a>}}
-\if{latex}{\out{\hypertarget{method-clear}{}}}
+\if{html}{\out{<a id="method-Dict-clear"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-clear}{}}}
 \subsection{Method \code{clear()}}{
 Clear dictionary.
 \subsection{Usage}{
@@ -364,8 +364,8 @@ Clear dictionary.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Dict-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Dict-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
