@@ -41,4 +41,6 @@ NEWS.org
 TODOs.org
 DESIGN.org
 
+# Local settings
 .Renv-version
+.tool-versions

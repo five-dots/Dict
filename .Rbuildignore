@@ -13,3 +13,5 @@
 ^README\.org$
 ^NEWS\.org$
 ^DESIGN\.org$
+
+^.tool-versions$
